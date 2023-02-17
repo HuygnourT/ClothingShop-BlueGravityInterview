@@ -7,64 +7,63 @@ namespace RPG.UI
 {
     public class SpriteUIElement : MonoBehaviour
     {
-        public Camera camera;
+        public Camera _camera;
 
-        public int pixelsPerUnit = 64;
+        public int _pixelsPerUnit = 64;
+        public Vector2 _anchor;
+        public Vector2 _offset;
+        public Vector2 _hideOffset;
 
-        public Vector2 anchor;
-        public Vector2 offset;
 
-        public Vector2 hideOffset;
+        [SerializeField] private AnimationCurve curve = AnimationCurve.Linear(0, 0, 1, 1);
+        [SerializeField] private float animationDuration = 0.5f;
 
-        public AnimationCurve curve = AnimationCurve.Linear(0, 0, 1, 1);
-        public float animationDuration = 0.5f;
+        private SpriteRenderer mSpriteRenderer;
+        private PixelPerfectCamera mPixelPerfectCamera;
+        private Vector2 mAnimationOffset;
 
-        SpriteRenderer spriteRenderer;
-        PixelPerfectCamera pixelPerfectCamera;
-        Vector2 animationOffset;
-
-        float t = 0;
-        float direction = 0;
+        private float t = 0;
+        private float mDirection = 0;
 
         [ContextMenu("Show")]
         public void Show()
         {
-            direction = 1;
+            mDirection = 1;
         }
 
         [ContextMenu("Hide")]
         public void Hide()
         {
-            direction = -1;
+            mDirection = -1;
         }
 
         public void Toggle()
         {
-            direction *= -1;
+            mDirection *= -1;
         }
 
         void OnEnable()
         {
-            spriteRenderer = GetComponent<SpriteRenderer>();
+            mSpriteRenderer = GetComponent<SpriteRenderer>();
 
             if (Application.isPlaying)
-                pixelPerfectCamera = camera.GetComponent<PixelPerfectCamera>();
-            anchor.x = Mathf.Round(anchor.x * pixelsPerUnit) / pixelsPerUnit;
-            anchor.y = Mathf.Round(anchor.y * pixelsPerUnit) / pixelsPerUnit;
+                mPixelPerfectCamera = _camera.GetComponent<PixelPerfectCamera>();
+            _anchor.x = Mathf.Round(_anchor.x * _pixelsPerUnit) / _pixelsPerUnit;
+            _anchor.y = Mathf.Round(_anchor.y * _pixelsPerUnit) / _pixelsPerUnit;
         }
 
         void Update()
         {
-            if (camera != null)
+            if (_camera != null)
             {
-                t = Mathf.Clamp01(t + (direction * Time.deltaTime / animationDuration));
+                t = Mathf.Clamp01(t + (mDirection * Time.deltaTime / animationDuration));
 
-                animationOffset = Vector2.LerpUnclamped(hideOffset, Vector3.zero, curve.Evaluate(t));
-                var p = (Vector2)camera.ViewportToWorldPoint(anchor + offset + animationOffset);
+                mAnimationOffset = Vector2.LerpUnclamped(_hideOffset, Vector3.zero, curve.Evaluate(t));
+                var p = (Vector2)_camera.ViewportToWorldPoint(_anchor + _offset + mAnimationOffset);
                 transform.position = p;
-                if (pixelPerfectCamera != null && Application.isPlaying)
+                if (mPixelPerfectCamera != null && Application.isPlaying)
                 {
-                    transform.position = pixelPerfectCamera.RoundToPixel(transform.position);
+                    transform.position = mPixelPerfectCamera.RoundToPixel(transform.position);
                 }
             }
         }

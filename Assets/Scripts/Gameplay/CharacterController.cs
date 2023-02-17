@@ -111,7 +111,6 @@ namespace RPG.Gameplay
 
         private void UpdateAnimator(Vector3 direction)
         {
-
             if (direction != Vector3.zero)
             {
                 mCurrentState = State.Run;
@@ -119,6 +118,7 @@ namespace RPG.Gameplay
             else
             {
                 mCurrentState = State.Idle;
+                mRigidbody2D.velocity = Vector3.zero;
             }
         }
 

@@ -12,6 +12,7 @@ namespace RPG.Gameplay
         public CharacterController Player;
         public InputController Input;
         public DialogUIController Dialog;
+        public InventoryUIController Inventory;
 
         Dictionary<GameObject, HashSet<string>> conversations = new Dictionary<GameObject, HashSet<string>>();
 

@@ -103,8 +103,8 @@ namespace RPG.UI
         void SetPosition(Vector3 position)
         {
             var screenPoint = mainCamera.WorldToScreenPoint(position);
-            position = spriteUIElement.camera.ScreenToViewportPoint(screenPoint);
-            spriteUIElement.anchor = position;
+            position = spriteUIElement._camera.ScreenToViewportPoint(screenPoint);
+            spriteUIElement._anchor = position;
         }
 
         public void Show(Vector3 position, string text, string buttonA, string buttonB, string buttonC)

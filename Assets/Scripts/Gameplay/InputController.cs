@@ -15,6 +15,7 @@ namespace RPG.Gameplay
         {
             CharacterControl,
             DialogControl,
+            InventoryControl,
             Pause
         }
 
