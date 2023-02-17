@@ -56,6 +56,41 @@ namespace RPG.Core
 
 
         /// <summary>
+        /// Return the simulation model instance for a class.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        static public T GetModel<T>() where T : class, new()
+        {
+            return InstanceRegister<T>.instance;
+        }
+
+
+        /// <summary>
+        /// Set a simulation model instance for a class. Uses reflection
+        /// to preserve existing references to the model.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        static public void SetModel<T>(T instance) where T : class, new()
+        {
+            var singleton = InstanceRegister<T>.instance;
+            foreach (var fi in typeof(T).GetFields())
+            {
+                fi.SetValue(singleton, fi.GetValue(instance));
+            }
+        }
+
+
+        /// <summary>
+        /// Destroy the simulation model instance for a class.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        static public void DestroyModel<T>() where T : class, new()
+        {
+            InstanceRegister<T>.instance = null;
+        }
+
+
+        /// <summary>
         /// Tick the simulation. Returns the count of remaining events.
         /// </summary>
         /// <returns></returns>

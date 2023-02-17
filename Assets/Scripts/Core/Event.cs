@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RPG.Gameplay;
 
 namespace RPG.Core
 {
@@ -11,6 +12,8 @@ namespace RPG.Core
     public abstract class Event : System.IComparable<Event>
     {
         public virtual void Execute() { }
+
+        protected GameModel model = Schedule.GetModel<GameModel>();
 
         internal float tick;
 
