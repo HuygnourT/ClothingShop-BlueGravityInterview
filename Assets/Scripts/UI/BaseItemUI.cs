@@ -10,20 +10,18 @@ namespace RPG.UI
 {
     public abstract class BaseItemUI : MonoBehaviour
     {
-        [SerializeField] private TextMeshPro _text;
-        [SerializeField] private SpriteRenderer _itemSpriteRender;
+        [SerializeField] protected TextMeshPro _text;
+        [SerializeField] protected SpriteRenderer _itemSpriteRender;
 
-        protected string mItemCode;
+        protected string mItemCode = string.Empty;
+        public string ItemCode { get { return mItemCode; } }
         Vector2 mDefaultSize = Vector2.one * 0.6f;
 
-        protected GameModel mGameModel;
-
-        //private 
+        protected GameModel mGameModel = Schedule.GetModel<GameModel>();
 
         public virtual void Setup(string itemCode, Sprite spriteItem, int amount)
         {
             mItemCode = itemCode;
-            mGameModel = Schedule.GetModel<GameModel>();
 
             if (_itemSpriteRender != null)
             {
@@ -35,6 +33,12 @@ namespace RPG.UI
             {
                 _text.text = amount.ToString();
             }
+        }
+
+
+        public virtual void Unequip()
+        {
+
         }
 
 
@@ -69,6 +73,12 @@ namespace RPG.UI
         public virtual void Exit()
         {
             
+        }
+
+
+        public virtual void Refresh()
+        {
+
         }
     }
 }

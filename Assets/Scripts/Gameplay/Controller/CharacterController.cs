@@ -22,12 +22,16 @@ namespace RPG.Gameplay
         private bool mIsFlipX = false;
         private Vector3 mNextMoveCommand;
 
+        const string DEFAULT_SKIN_ID = "s_0";
+        const string DEFAULT_HAIR_ID = "h_1";
+
         private enum State
         {
             Idle, 
             Walk,
             Run 
         }
+
 
         private State mCurrentState = State.Idle;
         private Vector3 mStartMove, mEndMove;
@@ -44,6 +48,12 @@ namespace RPG.Gameplay
         }
 
 
+        private void Start()
+        {
+            EquipDefaultItem();
+        }
+
+
         private void Update()
         {
             UpdateStateAnimator();
@@ -56,6 +66,14 @@ namespace RPG.Gameplay
             {
                 transform.position = mPixelPerfectCamera.RoundToPixel(transform.position);
             }
+        }
+
+
+        private void EquipDefaultItem()
+        {
+            GameModel gameModel = Core.Schedule.GetModel<GameModel>();
+            gameModel.UseInventoryItem(DEFAULT_SKIN_ID);
+            gameModel.UseInventoryItem(DEFAULT_HAIR_ID);
         }
 
 

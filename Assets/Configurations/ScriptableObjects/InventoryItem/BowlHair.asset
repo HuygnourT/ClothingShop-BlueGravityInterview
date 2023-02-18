@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 88df1cb18d1167f4e9ccf8348fc5b619, type: 3}
-  m_Name: GoblinSkin
+  m_Name: BowlHair
   m_EditorClassIdentifier: 
-  _itemCode: s_1
-  _itemType: 1
-  _spriteItem: {fileID: -1721714724, guid: e2cf850cecff6d54f9dbe13241e92dde, type: 3}
-  _nameItem: Base Skin
-  _descriptionItem: A new style of character - Goblin Skin
-  _skin: {fileID: 7108339969198208228, guid: b9380e2e8b8977a4bb16c92fe089ddef, type: 3}
+  _itemCode: h_1
+  _itemType: 0
+  _spriteItem: {fileID: -2091078776, guid: 4b6696d35ab1c3744a0825c54df2436f, type: 3}
+  _nameItem: Bowl Hair
+  _descriptionItem: A bowl hair style
+  _skin: {fileID: 7108339969198208228, guid: 5bfae0f33b3884c4087b81795befce0f, type: 3}

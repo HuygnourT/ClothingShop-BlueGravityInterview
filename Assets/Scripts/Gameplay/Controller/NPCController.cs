@@ -9,7 +9,7 @@ namespace RPG.Gameplay
     {
         [SerializeField] private ConversationScript[] conversations;
 
-        GameModel mGameModel;
+        protected GameModel mGameModel;
 
         void Start()
         {

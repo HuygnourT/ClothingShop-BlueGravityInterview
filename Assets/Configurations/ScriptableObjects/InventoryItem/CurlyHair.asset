@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 88df1cb18d1167f4e9ccf8348fc5b619, type: 3}
-  m_Name: GoblinSkin
+  m_Name: CurlyHair
   m_EditorClassIdentifier: 
-  _itemCode: s_1
-  _itemType: 1
-  _spriteItem: {fileID: -1721714724, guid: e2cf850cecff6d54f9dbe13241e92dde, type: 3}
-  _nameItem: Base Skin
-  _descriptionItem: A new style of character - Goblin Skin
-  _skin: {fileID: 7108339969198208228, guid: b9380e2e8b8977a4bb16c92fe089ddef, type: 3}
+  _itemCode: h_2
+  _itemType: 0
+  _spriteItem: {fileID: 1099169159, guid: 1a960a154141d174b8b9aff5026bc1f0, type: 3}
+  _nameItem: Curly Hair
+  _descriptionItem: A curly hair style
+  _skin: {fileID: 7108339969198208228, guid: 9f7aee353675efa42beadb4bde354911, type: 3}

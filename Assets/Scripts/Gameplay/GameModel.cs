@@ -14,6 +14,7 @@ namespace RPG.Gameplay
         public InputController Input;
         public DialogUIController Dialog;
         public InventoryUIController Inventory;
+        public ShopUIController Shop;
         public ItemController ItemController;
 
         Dictionary<string, int> intenvory = new Dictionary<string, int>();
@@ -29,9 +30,10 @@ namespace RPG.Gameplay
         }
 
 
-        public Sprite GetInventorySprite(string itemCode)
+        #region Item Controller
+        public Sprite GetItemSprite(string itemCode)
         {
-            var itemConfiguration =  ItemController.GetInventoryItemConfiguration(itemCode);
+            var itemConfiguration = GetItem(itemCode);
 
             if (itemConfiguration != null)
             {
@@ -41,6 +43,41 @@ namespace RPG.Gameplay
             return null;
         }
 
+
+        public InventoryItemConfiguration GetItem(string itemCode)
+        {
+            return ItemController.GetInventoryItemConfiguration(itemCode);
+        }
+
+
+        public string GetDescriptionItem(string itemCode)
+        {
+            var itemConfiguration = GetItem(itemCode);
+
+            if (itemConfiguration != null)
+            {
+                return itemConfiguration.DescriptionItem;
+            }
+
+            return "";
+        }
+
+
+        public string GetNameItem(string itemCode)
+        {
+            var itemConfiguration = GetItem(itemCode);
+
+            if (itemConfiguration != null)
+            {
+                return itemConfiguration.NameItem;
+            }
+
+            return "";
+        }
+        #endregion
+
+
+        #region Inventory
         public int GetInventoryCount(string itemCode)
         {
             foreach (var child in intenvory)
@@ -56,7 +93,6 @@ namespace RPG.Gameplay
 
         public void AddInventoryItem(string itemCode)
         {
-            Debug.Log("AddInventoryItem " + itemCode);
             if (intenvory.ContainsKey(itemCode) == false)
             {
                 intenvory.Add(itemCode, 1);
@@ -67,6 +103,7 @@ namespace RPG.Gameplay
             }
 
             Inventory.Refresh();
+            Shop.Refresh();
         }
 
 
@@ -83,6 +120,7 @@ namespace RPG.Gameplay
             }
 
             Inventory.Refresh();
+            Shop.Refresh();
         }
 
 
@@ -90,11 +128,10 @@ namespace RPG.Gameplay
         {
             Inventory.UseItem(itemCode);
         }
+        #endregion
 
 
-        public InventoryItemConfiguration GetItem(string itemCode)
-        {
-            return ItemController.GetInventoryItemConfiguration(itemCode);
-        }
+        #region Shop
+        #endregion
     }
 }

@@ -6,44 +6,36 @@ using RPG.Utils;
 
 namespace RPG.UI
 {
-    public class InventoryItemUI : BaseItemUI
+    public class ShopItemUI : BaseItemUI
     {
+        [SerializeField] private bool _isShopItem;
         [SerializeField] private Animator _itemSelectAnimator;
-        [SerializeField] private Transform _amountItemTransform;
-
         public override void Setup(string itemCode, Sprite spriteItem, int amount)
         {
             base.Setup(itemCode, spriteItem, amount);
-
-            if (_amountItemTransform != null)
-            {
-                _amountItemTransform.gameObject.SetActive(amount > 1);
-            }
-        }
-
-
-        public override void Clear()
-        {
-            base.Clear();
-
-            if (_amountItemTransform != null)
-            {
-                _amountItemTransform.gameObject.SetActive(false);
-            }
         }
 
 
         public override void Click()
         {
             base.Click();
-
             if (mGameModel != null)
             {
-                mGameModel.UseInventoryItem(mItemCode);
-                mGameModel.RemoveInventoryItem(mItemCode);
-            }
+                if (_isShopItem)
+                {
+                    mGameModel.Shop.BuyItem(mItemCode);
+                }
+                else
+                {
+                    mGameModel.Shop.SellItem(mItemCode);
+                }
+            }    
+        }
 
-            Clear();
+
+        public override void Clear()
+        {
+            base.Clear();
         }
 
 
@@ -57,6 +49,8 @@ namespace RPG.UI
                 }
 
                 _itemSelectAnimator.Play(GameConst.ANIMATION_ITEM_SELECT);
+
+                mGameModel.Shop.SetupPriceTag(_isShopItem, mItemCode);
             }
 
             if (mGameModel != null)
@@ -87,7 +81,7 @@ namespace RPG.UI
         {
             if (_itemSelectAnimator != null)
             {
-                _itemSelectAnimator.Play(GameConst.ANIMATION_ITEM_HIDE);
+                _itemSelectAnimator.enabled = false;
             }
         }
     }

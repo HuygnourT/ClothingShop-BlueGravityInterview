@@ -16,6 +16,7 @@ namespace RPG.Gameplay
             CharacterControl,
             DialogControl,
             InventoryControl,
+            ShopControl,
             Pause
         }
 
@@ -42,6 +43,10 @@ namespace RPG.Gameplay
 
                 case State.InventoryControl:
                     InventoryControl();
+                    break;
+
+                case State.ShopControl:
+                    ShopControl();
                     break;
 
                 case State.DialogControl:
@@ -142,6 +147,38 @@ namespace RPG.Gameplay
                 if (Input.GetKeyUp(KeyCode.I))
                 {
                     mModel.Inventory.ShowOrHide();
+                    ChangeState(State.CharacterControl);
+                }
+            }
+        }
+
+
+        private void ShopControl()
+        {
+            if (mModel == null)
+            {
+                return;
+            }
+
+            if (mModel.Shop != null)
+            {
+                if (Input.GetKeyDown(KeyCode.LeftArrow))
+                {
+                    mModel.Shop.FocusItem(-1);
+                }
+                else if (Input.GetKeyDown(KeyCode.RightArrow))
+                {
+                    mModel.Shop.FocusItem(+1);
+                }
+
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    mModel.Shop.UseItem();
+                }
+
+                if (Input.GetKeyUp(KeyCode.Escape))
+                {
+                    mModel.Shop.ShowOrHide();
                     ChangeState(State.CharacterControl);
                 }
             }

@@ -51,14 +51,6 @@ namespace RPG.UI
             }
         }
 
-        public void Show(SpriteRenderer contextSprite, string text)
-        {
-            var position = contextSprite.transform.position;
-            position.x -= contextSprite.size.x;
-            position.y -= contextSprite.size.y * 0.5f;
-            position.y += _dialogUILayout.spriteRenderer.size.y;
-            Show(position, text);
-        }
 
         public void SetButton(int index, string text)
         {
@@ -66,6 +58,7 @@ namespace RPG.UI
             d.SetButtonText(index, text);
             buttonCount = Mathf.Max(buttonCount, index + 1);
         }
+
 
         public void Show(Vector3 position, string text)
         {
@@ -77,6 +70,7 @@ namespace RPG.UI
             buttonCount = 0;
             selectedButton = -1;
         }
+
 
         public void Show(Vector3 position, string text, string buttonA)
         {

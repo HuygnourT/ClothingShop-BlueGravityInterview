@@ -33,6 +33,9 @@ namespace RPG.ScriptableObjects
         [SerializeField] private string _nameItem;
         public string NameItem { get { return _nameItem; } }
 
+        [SerializeField] private string _descriptionItem;
+        public string DescriptionItem { get { return _descriptionItem; } }
+
         [SerializeField] private SpriteLibraryAsset _skin;
         public SpriteLibraryAsset Skin { get { return _skin; } }
 

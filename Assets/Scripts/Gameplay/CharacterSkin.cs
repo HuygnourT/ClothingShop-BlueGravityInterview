@@ -15,7 +15,6 @@ namespace RPG.Gameplay
 
         public void EquipItem(SpriteLibraryAsset skin, int index)
         {
-            Debug.Log($"EquipItem {index}");
             switch (index)
             {
                 case 0:

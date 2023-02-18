@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RPG.Core;
 using RPG.Gameplay;
+using RPG.Utils;
 
 
 namespace RPG.Events
@@ -34,14 +35,7 @@ namespace RPG.Events
 
             //show the dialog
             model.Dialog.Show(position, ci.text);
-            var animator = gameObject.GetComponent<Animator>();
-            if (animator != null)
-            {
-                animator.SetBool("Talk", true);
-                var ev = Schedule.Add<StopTalking>(2);
-                //ev.animator = animator;
-            }
-
+            var ev = Schedule.Add<StopTalking>(2);
 
             //if this conversation item has an id, register it in the model.
             if (!string.IsNullOrEmpty(ci.id))
@@ -79,7 +73,18 @@ namespace RPG.Events
                         ev.gameObject = gameObject;
                         ev.conversationItemKey = next;
                     }
-                    else
+                    else if (next.Equals(GameConst.NEXT_EVENT_OPEN_SHOP))
+                    {
+                        var ev = Schedule.Add<OpenShop>(0f);
+                        var npcShop = npc as NPCShopController;
+                        if (npcShop != null)
+                        {
+                            model.Shop.UpdateItemForSell(npcShop.ItemInShop);
+                        }
+
+                        model.Input.ChangeState(InputController.State.ShopControl);
+                    }
+                    else 
                     {
                         Debug.LogError($"No conversation with ID:{next}");
                     }

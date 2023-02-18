@@ -10,9 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 88df1cb18d1167f4e9ccf8348fc5b619, type: 3}
-  m_Name: ShortHair
+  m_Name: BaseSkin
   m_EditorClassIdentifier: 
-  _itemCode: h_1
+  _itemCode: s_0
   _itemType: 1
-  _spriteItem: {fileID: 743238164, guid: 83fe0bd4f3fab964b9789cab46214f76, type: 3}
-  _nameItem: Short Hair
+  _spriteItem: {fileID: -1182478769, guid: 8f039a87dc0610d45a932323affb0295, type: 3}
+  _nameItem: 
+  _descriptionItem: It's a base skin of character
+  _skin: {fileID: 7108339969198208228, guid: 4022f0fc9aa6e084eb3da3cb85e0b189, type: 3}

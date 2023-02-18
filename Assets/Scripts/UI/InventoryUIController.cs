@@ -9,39 +9,42 @@ namespace RPG.UI
 {
     public class InventoryUIController : MonoBehaviour
     {
-        //public Transform elementPrototype;
         public float stepSize = 1;
 
-        [SerializeField] private List<EquipmentItemUI> _equipmentItemUI;
-        [SerializeField] private List<InventoryItemUI> _inventoryItemUI;
+        [SerializeField] private InventoryUILayout _inventoryUILayout;
 
         int selectedItem;
         Vector2 firstItem;
         GameModel model; 
-        SpriteUIElement sizer;
 
         void Start()
         {
-            gameObject.SetActive(false);
+            if (_inventoryUILayout != null)
+            {
+                _inventoryUILayout.gameObject.SetActive(false);
+            }
+
             model = Schedule.GetModel<GameModel>();
-            sizer = GetComponent<SpriteUIElement>();
             Refresh();
         }
 
+
         public void Refresh()
         {
-            var cursor = firstItem;
-            for (var i = 1; i < transform.childCount; i++)
-                Destroy(transform.GetChild(i).gameObject);
+            if (_inventoryUILayout == null)
+            {
+                return;
+            }
+
+            _inventoryUILayout.ClearItem();
             var displayCount = 0;
             foreach (var itemCode in model.InventoryItems)
             {
                 var count = model.GetInventoryCount(itemCode);
-                if (count <= 0) continue;
 
                 var item = model.GetItem(itemCode);
 
-                _inventoryItemUI[displayCount].Setup(itemCode, item.SpriteItem, count);
+                _inventoryUILayout.SetupInventoryItem(displayCount, itemCode, item.SpriteItem, count);
                 displayCount++;
             }
         }
@@ -49,53 +52,57 @@ namespace RPG.UI
 
         public void ShowOrHide()
         {
+            _inventoryUILayout.Exit(selectedItem);
             selectedItem = -1;
-            gameObject.SetActive(!gameObject.activeSelf);
+
+            if (_inventoryUILayout != null)
+            {
+                bool isActive = !_inventoryUILayout.gameObject.activeSelf;
+
+                if (isActive)
+                {
+                    Refresh();
+                }
+                else
+                {
+                    _inventoryUILayout.Refresh();
+                }
+
+                _inventoryUILayout.gameObject.SetActive(isActive);
+            }
         }
 
 
         public void FocusItem(int direction)
         {
+            if (_inventoryUILayout == null)
+            {
+                return;
+            }
+
             if (selectedItem < 0) selectedItem = 0;
 
-            if (selectedItem >= 0)
+            int maxIndex = _inventoryUILayout.GetEquipmentItemCount() + _inventoryUILayout.GetInventoryItemCount() - 1;
+
+            if (selectedItem == maxIndex || (direction < 0 && selectedItem == 0))
             {
-                if (selectedItem < _equipmentItemUI.Count)
-                {
-                    _equipmentItemUI[selectedItem].Exit();
-                }
-                else
-                {
-                    _inventoryItemUI[selectedItem - _equipmentItemUI.Count].Exit();
-                }
+                return;
             }
-            
+
+            _inventoryUILayout.Exit(selectedItem);
 
             selectedItem += direction;
-            selectedItem = Mathf.Clamp(selectedItem, 0, _equipmentItemUI.Count + _inventoryItemUI.Count - 1);
+            selectedItem = Mathf.Clamp(selectedItem, 0, maxIndex);
 
-            if (selectedItem < _equipmentItemUI.Count)
-            {
-                _equipmentItemUI[selectedItem].Enter();
-            }
-            else
-            {
-                _inventoryItemUI[selectedItem - _equipmentItemUI.Count].Enter();
-            }
+            _inventoryUILayout.Enter(selectedItem);
         }
 
 
         public void UseItem()
         {
-            if (selectedItem < _equipmentItemUI.Count)
+            if (_inventoryUILayout != null)
             {
-                // Unequip
-                _equipmentItemUI[selectedItem].Click();
-            }
-            else
-            {
-                //Equip
-                _inventoryItemUI[selectedItem - _equipmentItemUI.Count].Click();
+                _inventoryUILayout.Click(selectedItem);
             }
         }
 
@@ -104,12 +111,26 @@ namespace RPG.UI
         {
             var item = model.GetItem(itemCode);
 
-            if (item.IsEquipment())
+            if (item != null && item.IsEquipment())
             {
-                _equipmentItemUI[(int)item.ItemType].Setup(item.ItemCode, item.SpriteItem, 1);
+                if (_inventoryUILayout != null)
+                {
+                    var equipmentItem = _inventoryUILayout.GetEquipmentItemUI((int)item.ItemType);
 
-                model.Player.EquipItem(item.Skin, (int)item.ItemType);
+                    if (equipmentItem != null)
+                    {
+                        equipmentItem.Unequip();
+                        equipmentItem.Setup(item.ItemCode, item.SpriteItem, 1);
+                        model.Player.EquipItem(item.Skin, (int)item.ItemType);
+                    }
+                }
             }
+        }
+
+
+        public void RemoveUseItem(string itemCode)
+        {
+
         }
     }
 }
