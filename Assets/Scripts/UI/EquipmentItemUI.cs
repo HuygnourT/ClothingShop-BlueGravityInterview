@@ -14,6 +14,11 @@ namespace RPG.UI
         public override void Setup(string itemCode, Sprite spriteItem, int amount)
         {
             base.Setup(itemCode, spriteItem, amount);
+            if (mGameModel != null)
+            {
+                mGameModel.RemoveInventoryItem(mItemCode);
+            }
+            
             if (_text != null)
             {
                 _text.text = _nameEquipmentItem;
@@ -41,8 +46,6 @@ namespace RPG.UI
         public override void Click()
         {
             base.Click();
-
-            Debug.Log($"EquipmentItemUI click {mItemCode} {mGameModel != null}");
 
             if (mGameModel != null)
             {   

@@ -40,7 +40,6 @@ namespace RPG.UI
             if (mGameModel != null)
             {
                 mGameModel.UseInventoryItem(mItemCode);
-                mGameModel.RemoveInventoryItem(mItemCode);
             }
 
             Clear();

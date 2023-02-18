@@ -35,8 +35,7 @@ namespace RPG.UI
             {
                 return;
             }
-
-            _inventoryUILayout.ClearItem();
+   
             var displayCount = 0;
             foreach (var itemCode in model.InventoryItems)
             {
@@ -65,6 +64,7 @@ namespace RPG.UI
                 }
                 else
                 {
+                    _inventoryUILayout.ClearItem();
                     _inventoryUILayout.Refresh();
                 }
 
@@ -122,6 +122,8 @@ namespace RPG.UI
                         equipmentItem.Unequip();
                         equipmentItem.Setup(item.ItemCode, item.SpriteItem, 1);
                         model.Player.EquipItem(item.Skin, (int)item.ItemType);
+                        ShowOrHide();
+                        model.Input.ChangeState(InputController.State.CharacterControl);
                     }
                 }
             }

@@ -130,16 +130,16 @@ namespace RPG.Gameplay
 
             if (mModel.Inventory != null)
             {
-                if (Input.GetKeyDown(KeyCode.LeftArrow))
+                if (Input.GetKeyUp(KeyCode.LeftArrow))
                 {
                     mModel.Inventory.FocusItem(-1);
                 }
-                else if (Input.GetKeyDown(KeyCode.RightArrow))
+                else if (Input.GetKeyUp(KeyCode.RightArrow))
                 {
                     mModel.Inventory.FocusItem(+1);
                 }
 
-                if (Input.GetKeyDown(KeyCode.Space))
+                if (Input.GetKeyUp(KeyCode.Space))
                 {
                     mModel.Inventory.UseItem();
                 }
