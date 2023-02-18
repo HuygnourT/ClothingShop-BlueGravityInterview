@@ -15,6 +15,6 @@ MonoBehaviour:
   _itemCode: s_1
   _itemType: 1
   _spriteItem: {fileID: -1721714724, guid: e2cf850cecff6d54f9dbe13241e92dde, type: 3}
-  _nameItem: Base Skin
+  _nameItem: Goblin Skin
   _descriptionItem: A new style of character - Goblin Skin
   _skin: {fileID: 7108339969198208228, guid: b9380e2e8b8977a4bb16c92fe089ddef, type: 3}

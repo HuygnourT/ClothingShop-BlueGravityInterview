@@ -54,7 +54,7 @@ namespace RPG.UI
 
             if (_text != null)
             {
-                _text.text = "0";
+                _text.text = "1";
             }
         }
 

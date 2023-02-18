@@ -15,6 +15,6 @@ MonoBehaviour:
   _itemCode: s_0
   _itemType: 1
   _spriteItem: {fileID: -1182478769, guid: 8f039a87dc0610d45a932323affb0295, type: 3}
-  _nameItem: 
+  _nameItem: Base Skin
   _descriptionItem: It's a base skin of character
   _skin: {fileID: 7108339969198208228, guid: 4022f0fc9aa6e084eb3da3cb85e0b189, type: 3}
